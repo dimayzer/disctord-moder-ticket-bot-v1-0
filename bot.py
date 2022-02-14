@@ -1,7 +1,7 @@
 import time
 import discord
 from discord.ext import commands
-
+import string
 from config import *
 import random
 from discord.ext import tasks
@@ -161,7 +161,9 @@ async def ticket(ctx):
 	channel_s = ctx.message.channel.id
 	guild = ctx.message.guild
 	if channel_s == 942428554480726077:
-		num = random.randint(1, 10000) #генерация номера
+		length = 8
+		letters_and_digits = string.ascii_letters + string.digits
+		num = ''.join(random.sample(letters_and_digits, length)) #генерация номера
 		ticket_channel = await guild.create_text_channel(f"ticket-{num}") #создаем канал для тикета
 		print(f"[log] {ctx.message.author} создал тикет")
 
