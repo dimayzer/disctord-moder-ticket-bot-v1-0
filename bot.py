@@ -24,6 +24,7 @@ async def on_member_join (member):
 	role = discord.utils.get (member.guild.roles, id=595307817829793794) #айди роли, которая выдается каждому зашедшему
 	channel = bot.get_channel(logs_id) #канал с логами
 	await channel.send(f"[log] {member.mention} зашел на сервер") #отправка логов
+	print(f"[log] {member.mention} зашел на сервер")
 	await member.add_roles( role ) #выдача роли зашедшему
 	embed = discord.Embed(
 		title = "Добро пожаловать на сервер!",
@@ -263,6 +264,7 @@ async def on_voice_state_update(member, before, after):
 			else:
 				await channel.send(f"[log] {member.mention} вышел из канала **{channel1}**. Канал удален.")
 				await channel1.delete() #удаляем канал
+				print(f"[log] {member.mention} вышел из канала **{channel1}**. Канал удален.")
 
 @bot.command()
 @commands.has_permissions(administrator=True) #обязательно права админа
@@ -271,8 +273,8 @@ async def del_ticket(ctx):
 	channel = ctx.message.channel
 	await channel.delete() #удаляем канал с тикетом
 	channell = bot.get_channel(logs_id)
-	await channell.send(f"[log] {ctx.message.author.mention} удалил **{channel}**.")
-
+	await channell.send(f"[log] {ctx.message.author.mention} удалил тикет**{channel}**.")
+	print(f"[log] {ctx.message.author.mention} удалил тикет**{channel}**.")
 
 
 #приветственное сообщение
