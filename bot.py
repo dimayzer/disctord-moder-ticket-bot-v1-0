@@ -1,0 +1,294 @@
+import time
+import discord
+from discord.ext import commands
+
+from config import *
+import random
+from discord.ext import tasks
+from discord_components import *
+bot = commands.Bot(command_prefix = "!", intents = discord.Intents.all())
+logs_id = 942391965226500166
+role1_id =754029920518144010
+role2_id =873222057498927134
+ 
+
+#запуск бота
+@bot.event
+async def on_ready():
+	print("Connected!")
+
+
+#ивент на присоединение пользователя к серверу
+@bot.event
+async def on_member_join (member):
+	role = discord.utils.get (member.guild.roles, id=595307817829793794) #айди роли, которая выдается каждому зашедшему
+	channel = bot.get_channel(logs_id) #канал с логами
+	await channel.send(f"[log] {member.mention} зашел на сервер") #отправка логов
+	await member.add_roles( role ) #выдача роли зашедшему
+	embed = discord.Embed(
+		title = "Добро пожаловать на сервер!",
+		description = f"{member.mention}, добро пожаловать на сервер, для получения ролей заходи в канал <#763118872877727821>",
+		color =0x0c0c0c
+		)
+	msg = await member.send(embed=embed) #отправление приветственного сообещния в лс пользователю
+
+
+
+
+# выдаем пользователю роли по нажатию
+@bot.event
+async def on_raw_reaction_add(payload):
+	ourMessageID = 942189671390249000 #айди сообщения, к которому аттачатся роли
+
+	if ourMessageID == payload.message_id:
+		member = payload.member
+		guild = member.guild
+
+
+		emoji = payload.emoji.name
+		if emoji == '🏢':
+			role = discord.utils.get(guild.roles, name = "🏢 DownTown 🏢")
+		elif emoji == '🍓':
+			role = discord.utils.get(guild.roles, name = "🍓 StrawBerry 🍓")
+		elif emoji == '🌴':
+			role = discord.utils.get(guild.roles, name = "🌴 VineWood 🌴")
+		elif emoji == '🍇':
+			role = discord.utils.get(guild.roles, name = "🍇 BlackBerry 🍇")
+		elif emoji == '👓':
+			role = discord.utils.get(guild.roles, name = "👓 InSquad 👓")
+		elif emoji == '🌅':
+			role = discord.utils.get(guild.roles, name = "🌅 Sunrise 🌅")
+		elif emoji == '🌈':
+			role = discord.utils.get(guild.roles, name = "🌈 Rainbow 🌈")
+		elif emoji == '🌆':
+			role = discord.utils.get(guild.roles, name = "🌆 Richman 🌆")
+		elif emoji == '🔫':
+			role = discord.utils.get(guild.roles, name = "🔫 Eclipse 🔫")
+		elif emoji == '🌵':
+			role = discord.utils.get(guild.roles, name = "🌵 La Mesa 🌵")
+		elif emoji == '🏛':
+			role = discord.utils.get(guild.roles, name = "🏛 Burton 🏛")
+		elif emoji == '💎':
+			role = discord.utils.get(guild.roles, name = "💎 Rockford 💎")
+		elif emoji == '🍀':
+			role = discord.utils.get(guild.roles, name = "🍀 Alta 🍀")
+
+
+		await member.add_roles(role) #добавляем роль
+		channel = bot.get_channel(logs_id) #снова логи
+		await channel.send(f"[log] {member.mention} получил роль {role.mention}")
+		print(f"[log] {member} получил роль {role}")
+
+
+#удаляем роли у пользователя по нажатию
+@bot.event
+async def on_raw_reaction_remove(payload):
+	ourMessageID = 942189671390249000
+
+	if ourMessageID == payload.message_id:
+		guild = await(bot.fetch_guild(payload.guild_id))
+		emoji = payload.emoji.name
+		if emoji == '🏢':
+			role = discord.utils.get(guild.roles, name = "🏢 DownTown 🏢")
+		elif emoji == '🍓':
+			role = discord.utils.get(guild.roles, name = "🍓 StrawBerry 🍓")
+		elif emoji == '🌴':
+			role = discord.utils.get(guild.roles, name = "🌴 VineWood 🌴")
+		elif emoji == '🍇':
+			role = discord.utils.get(guild.roles, name = "🍇 BlackBerry 🍇")
+		elif emoji == '👓':
+			role = discord.utils.get(guild.roles, name = "👓 InSquad 👓")
+		elif emoji == '🌅':
+			role = discord.utils.get(guild.roles, name = "🌅 Sunrise 🌅")
+		elif emoji == '🌈':
+			role = discord.utils.get(guild.roles, name = "🌈 Rainbow 🌈")
+		elif emoji == '🌆':
+			role = discord.utils.get(guild.roles, name = "🌆 Richman 🌆")
+		elif emoji == '🔫':
+			role = discord.utils.get(guild.roles, name = "🔫 Eclipse 🔫")
+		elif emoji == '🌵':
+			role = discord.utils.get(guild.roles, name = "🌵 La Mesa 🌵")
+		elif emoji == '🏛':
+			role = discord.utils.get(guild.roles, name = "🏛 Burton 🏛")
+		elif emoji == '💎':
+			role = discord.utils.get(guild.roles, name = "💎 Rockford 💎")
+		elif emoji == '🍀':
+			role = discord.utils.get(guild.roles, name = "🍀 Alta 🍀")
+
+
+		member = await(guild.fetch_member(payload.user_id))
+		if member is not None:
+			await member.remove_roles(role)
+			channel = bot.get_channel(logs_id)
+			await channel.send(f"[log] {member.mention} снял роль {role.mention}")
+			print(f"[log] {member} снял роль {role}")
+
+		else:
+			print("[log] Участник не найден!")
+
+
+#приветственное сообщение
+@bot.command(pass_context = True)
+@commands.has_permissions(administrator=True)
+async def welcome(ctx):
+	embed = discord.Embed(
+		title = "Добро пожаловать на сервер!",
+		description = "Для получения роли нажми на эмоцию",
+		color =0x1abc9c
+		)
+
+	msg = await ctx.send(embed=embed)
+	await msg.add_reaction('🏢')
+	await msg.add_reaction('🍓')
+	await msg.add_reaction('🌴')
+	await msg.add_reaction('🍇')
+	await msg.add_reaction('👓')
+	await msg.add_reaction('🌅')
+	await msg.add_reaction('🌈')
+	await msg.add_reaction('🌆')
+	await msg.add_reaction('🔫')
+	await msg.add_reaction('🌵')
+	await msg.add_reaction('🏛')
+	await msg.add_reaction('💎')
+	await msg.add_reaction('🍀')	
+
+
+#создание тикетов
+@bot.command()
+async def ticket(ctx):
+	channell = bot.get_channel(logs_id) #канал с логами
+	channel_s = ctx.message.channel.id
+	guild = ctx.message.guild
+	if channel_s == 942428554480726077:
+		num = random.randint(1, 10000) #генерация номера
+		ticket_channel = await guild.create_text_channel(f"ticket-{num}") #создаем канал для тикета
+		print(f"[log] {ctx.message.author} создал тикет")
+
+		embed = discord.Embed(
+			title = f"Вы успешно создали тикет **№{num}**!",
+			description = f"{ctx.message.author.mention}, подробно опишите свою проблему и дождитесь ответа администрации!",
+			color =0x1abc9c
+			)
+		await ticket_channel.send(embed=embed)
+		role_everyone = ctx.guild.get_role(role_id=595212036909170689) #роль everyone
+		overwrite1 = discord.PermissionOverwrite()
+		overwrite1.send_messages = False
+		overwrite1.read_messages = False
+		overwrite1.read_message_history = False
+		overwrite1.attach_files = False
+		overwrite1.view_channel = False
+
+		await ticket_channel.set_permissions(role_everyone, overwrite=overwrite1) #закрываем доступ роли everyone к каналу тикет
+
+		overwrite = discord.PermissionOverwrite()
+		overwrite.send_messages = True
+		overwrite.read_messages = True
+		overwrite.read_message_history = True
+		overwrite.attach_files = True
+		overwrite.view_channel = True
+
+	    # Задаём права автору сообщения и тегаем
+		await ticket_channel.set_permissions(ctx.message.author, overwrite=overwrite)
+
+		
+		msg = await channell.send(f"[log] {ctx.message.author.mention} создал тикет <#{ticket_channel.id}> **{ticket_channel}**. Тег админов: {ctx.guild.get_role(role_id=role1_id).mention}, {ctx.guild.get_role(role_id=role2_id).mention}")
+	else:
+		await ctx.message.delete()
+
+#создание войс канала
+@bot.command()
+async def voice(ctx, name):
+    
+	guild = ctx.message.guild
+	channel = ctx.message.channel.id
+	reference = guild.get_channel(channel) # берем какой-нибудь канал за "основу"
+	name = "{} {}".format(reference, name)
+	if channel == 595298337683406888: #айди канала, из которого нельзя создать войс
+		embed = discord.Embed(
+		title = "Ошибка!",
+		description = f"{ctx.message.author.mention}, Вы не можете создать войс-канал!",
+		color =0x1abc9c
+		)
+		msg = await ctx.send(embed=embed)
+
+	elif channel == 595298111778193428: #айди канала, из которого нельзя создать войс
+		embed = discord.Embed(
+		title = "Ошибка!",
+		description = f"{ctx.message.author.mention}, Вы не можете создать войс-канал!",
+		color =0x1abc9c
+		)
+		msg = await ctx.send(embed=embed)
+
+	else:	
+		channel = await guild.create_voice_channel(
+	    name, 
+	    position=reference.position+1, # создаём канал под "основой"
+	    category=reference.category, # в категории канала-"основы"
+	    reason="создан с помощью бота by. dimayzer", # С причиной "ABC" (отображается в Audit Log)
+		)
+		
+		embed = discord.Embed(
+		title = "Готово!",
+		description = f"{ctx.message.author.mention}, Вы успешно создали войс-канал <#{channel.id}>!",
+		color =0x1abc9c
+		)
+		msg = await ctx.send(embed=embed)
+		channell = bot.get_channel(logs_id)
+		
+		await channell.send(f"[log] {ctx.message.author.mention} создал войс канал <#{channel.id}> **{name}**")
+		print(f"[log] {ctx.message.author} создал войс канал {name}")
+
+
+#удаление канала, если в нем 0 юзеров
+@bot.event
+async def on_voice_state_update(member, before, after):
+	channel = bot.get_channel(logs_id)
+	if before.channel is None and after.channel is not None:
+		await channel.send(f"[log] {member.mention} зашёл в канал <#{after.channel.id}> **{after.channel}**, в канале пользователей: {len(after.channel.members)}")
+	elif before.channel is not None and after.channel is None:
+		await channel.send(f"[log] {member.mention} вышел из канала <#{before.channel.id}> **{before.channel}**, в канале пользователей: {len(before.channel.members)}")
+		channel1 = before.channel
+		if (len(before.channel.members)) == 0: #проверяем сколько юзеров в канале
+			channel = bot.get_channel(logs_id)
+			if channel1.id == 942419810422255626: #проверяем, какой это канал (можно удалить или нет)
+				await channel.send(f"[log] {member.mention} вышел из канала <#{before.channel.id}> **{channel1}**.")
+			elif channel1.id == 942418430156472353:
+				await channel.send(f"[log] {member.mention} вышел из канала <#{before.channel.id}> **{channel1}**.")
+			elif channel1.id == 595302393948667967:
+				await channel.send(f"[log] {member.mention} вышел из канала <#{before.channel.id}> **{channel1}**.")
+				
+
+
+
+			else:
+				await channel.send(f"[log] {member.mention} вышел из канала **{channel1}**. Канал удален.")
+				await channel1.delete() #удаляем канал
+
+@bot.command()
+@commands.has_permissions(administrator=True) #обязательно права админа
+async def del_ticket(ctx):
+
+	channel = ctx.message.channel
+	await channel.delete() #удаляем канал с тикетом
+	channell = bot.get_channel(logs_id)
+	await channell.send(f"[log] {ctx.message.author.mention} удалил **{channel}**.")
+
+
+
+#приветственное сообщение
+@bot.command(pass_context = True)
+@commands.has_permissions(administrator=True)
+async def wel_help(ctx):
+	file = discord.File("1.mp4")
+	embed = discord.Embed(
+		title = "Команды бота",
+		color =0x1abc9c
+		)
+	embed.add_field(name = "!voice {название}", value = "создается голосовой канал. Можно использовать в каналах вашего сервера.", inline = False)
+	embed.add_field(name = "!ticket", value = "создается тикет. Для создания необходимо перейти в канал <#942428554480726077>.", inline = False)
+
+	msg = await ctx.send(embed=embed, file=file)
+
+
+
+bot.run(TOKEN)
