@@ -275,8 +275,8 @@ async def del_ticket(ctx):
 	channel = ctx.message.channel
 	await channel.delete() #удаляем канал с тикетом
 	channell = bot.get_channel(logs_id)
-	await channell.send(f"[log] {ctx.message.author.mention} удалил тикет**{channel}**.")
-	print(f"[log] {ctx.message.author.mention} удалил тикет**{channel}**.")
+	await channell.send(f"[log] {ctx.message.author.mention} удалил тикет **{channel}**.")
+	print(f"[log] {ctx.message.author.mention} удалил тикет **{channel}**.")
 
 
 #приветственное сообщение
