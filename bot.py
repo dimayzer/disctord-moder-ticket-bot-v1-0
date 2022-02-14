@@ -254,11 +254,11 @@ async def on_voice_state_update(member, before, after):
 		if (len(before.channel.members)) == 0: #проверяем сколько юзеров в канале
 			channel = bot.get_channel(logs_id)
 			if channel1.id == 942419810422255626: #проверяем, какой это канал (можно удалить или нет)
-				await channel.send(f"[log] {member.mention} вышел из канала <#{before.channel.id}> **{channel1}**.")
+				await channel.send(f"[log] Канал <#{before.channel.id}> **{channel1}** свободен.")
 			elif channel1.id == 942418430156472353:
-				await channel.send(f"[log] {member.mention} вышел из канала <#{before.channel.id}> **{channel1}**.")
+				await channel.send(f"[log] Канал <#{before.channel.id}> **{channel1}** свободен.")
 			elif channel1.id == 595302393948667967:
-				await channel.send(f"[log] {member.mention} вышел из канала <#{before.channel.id}> **{channel1}**.")
+				await channel.send(f"[log] Канал <#{before.channel.id}> **{channel1}** свободен.")
 				
 
 
@@ -275,8 +275,8 @@ async def del_ticket(ctx):
 	channel = ctx.message.channel
 	await channel.delete() #удаляем канал с тикетом
 	channell = bot.get_channel(logs_id)
-	await channell.send(f"[log] {ctx.message.author.mention} удалил тикет **{channel}**.")
-	print(f"[log] {ctx.message.author.mention} удалил тикет **{channel}**.")
+	await channell.send(f"[log] {ctx.message.author.mention} удалил тикет**{channel}**.")
+	print(f"[log] {ctx.message.author.mention} удалил тикет**{channel}**.")
 
 
 #приветственное сообщение
