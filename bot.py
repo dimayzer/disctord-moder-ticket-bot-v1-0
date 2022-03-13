@@ -51,13 +51,15 @@ async def on_member_join (member):
 	await channel.send(f"[log] {member.mention} зашел на сервер") #отправка логов
 	print(f"[log] {member.mention} зашел на сервер")
 	await member.add_roles( role ) #выдача роли зашедшему
-	embed = discord.Embed(
-		title = "Добро пожаловать на сервер!",
-		description = f"{member.mention}, добро пожаловать на сервер, для получения ролей заходи в канал <#763118872877727821>",
-		color =0x0c0c0c
-		)
-	msg = await member.send(embed=embed) #отправление приветственного сообещния в лс пользователю
-
+	try:
+		embed = discord.Embed(
+			title = "Добро пожаловать на сервер!",
+			description = f"{member.mention}, добро пожаловать на сервер, для получения ролей заходи в канал <#763118872877727821>",
+			color =0x0c0c0c
+			)
+		msg = await member.send(embed=embed) #отправление приветственного сообещния в лс пользователю
+	except Exception as e:
+		await channel.send(f"[log] Начальное сообщение пользователю {member.mention} не было отправлено: {e}") #отправка логов		
 
 
 
