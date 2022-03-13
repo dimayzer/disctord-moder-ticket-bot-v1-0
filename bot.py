@@ -24,29 +24,29 @@ async def on_member_join (member):
 	role = discord.utils.get (member.guild.roles, id=595307817829793794) #айди роли, которая выдается каждому зашедшему
 	channel = bot.get_channel(logs_id) #канал с логами
 	emb = discord.Embed(title="Информация о пользователе", color=ctx.message.author.color)
-        emb.add_field(name="Имя:", value=ctx.message.author.display_name,inline=False)
-        emb.add_field(name="Айди пользователя:", value=ctx.message.author.id,inline=False)
-        t = ctx.message.author.status
-        if t == discord.Status.online:
-            d = " В сети"
+	emb.add_field(name="Имя:", value=ctx.message.author.display_name,inline=False)
+	emb.add_field(name="Айди пользователя:", value=ctx.message.author.id,inline=False)
+	t = ctx.message.author.status
+	if t == discord.Status.online:
+		d = " В сети"
 
-        t = ctx.message.author.status
-        if t == discord.Status.offline:
-            d = "⚪ Не в сети"
+	t = ctx.message.author.status
+	if t == discord.Status.offline:
+		d = "⚪ Не в сети"
 
-        t = ctx.message.author.status
-        if t == discord.Status.idle:
-            d = " Не активен"
+	t = ctx.message.author.status
+	if t == discord.Status.idle:
+		d = " Не активен"
 
-        t = ctx.message.author.status
-        if t == discord.Status.dnd:
-            d = " Не беспокоить"
+	t = ctx.message.author.status
+	if t == discord.Status.dnd:
+		d = " Не беспокоить"
 
-        emb.add_field(name="Активность:", value=d,inline=False)
-        emb.add_field(name="Статус:", value=ctx.message.author.activity,inline=False)
-        emb.add_field(name="Акаунт был создан:", value=ctx.message.author.created_at.strftime("%a, %#d %B %Y, %I:%M %p UTC"),inline=False)
-        emb.set_thumbnail(url=ctx.message.author.avatar_url)
-    await enter_channel.send(embed = emb) #отправка логов
+	emb.add_field(name="Активность:", value=d,inline=False)
+	emb.add_field(name="Статус:", value=ctx.message.author.activity,inline=False)
+	emb.add_field(name="Акаунт был создан:", value=ctx.message.author.created_at.strftime("%a, %#d %B %Y, %I:%M %p UTC"),inline=False)
+	emb.set_thumbnail(url=ctx.message.author.avatar_url)
+	await enter_channel.send(embed = emb) #отправка логов
 	await channel.send(f"[log] {member.mention} зашел на сервер") #отправка логов
 	print(f"[log] {member.mention} зашел на сервер")
 	await member.add_roles( role ) #выдача роли зашедшему
