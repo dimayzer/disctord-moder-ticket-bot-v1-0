@@ -74,32 +74,9 @@ async def on_raw_reaction_add(payload):
 
 
 		emoji = payload.emoji.name
-		if emoji == '🏢':
-			role = discord.utils.get(guild.roles, name = "🏢 DownTown 🏢")
-		elif emoji == '🍓':
-			role = discord.utils.get(guild.roles, name = "🍓 StrawBerry 🍓")
-		elif emoji == '🌴':
-			role = discord.utils.get(guild.roles, name = "🌴 VineWood 🌴")
-		elif emoji == '🍇':
-			role = discord.utils.get(guild.roles, name = "🍇 BlackBerry 🍇")
-		elif emoji == '👓':
-			role = discord.utils.get(guild.roles, name = "👓 InSquad 👓")
-		elif emoji == '🌅':
-			role = discord.utils.get(guild.roles, name = "🌅 Sunrise 🌅")
-		elif emoji == '🌈':
-			role = discord.utils.get(guild.roles, name = "🌈 Rainbow 🌈")
-		elif emoji == '🌆':
-			role = discord.utils.get(guild.roles, name = "🌆 Richman 🌆")
-		elif emoji == '🔫':
-			role = discord.utils.get(guild.roles, name = "🔫 Eclipse 🔫")
-		elif emoji == '🌵':
-			role = discord.utils.get(guild.roles, name = "🌵 La Mesa 🌵")
-		elif emoji == '🏛':
-			role = discord.utils.get(guild.roles, name = "🏛 Burton 🏛")
-		elif emoji == '💎':
+		if  emoji == '💎':
 			role = discord.utils.get(guild.roles, name = "💎 Rockford 💎")
-		elif emoji == '🍀':
-			role = discord.utils.get(guild.roles, name = "🍀 Alta 🍀")
+	
 
 
 		await member.add_roles(role) #добавляем роль
@@ -116,32 +93,9 @@ async def on_raw_reaction_remove(payload):
 	if ourMessageID == payload.message_id:
 		guild = await(bot.fetch_guild(payload.guild_id))
 		emoji = payload.emoji.name
-		if emoji == '🏢':
-			role = discord.utils.get(guild.roles, name = "🏢 DownTown 🏢")
-		elif emoji == '🍓':
-			role = discord.utils.get(guild.roles, name = "🍓 StrawBerry 🍓")
-		elif emoji == '🌴':
-			role = discord.utils.get(guild.roles, name = "🌴 VineWood 🌴")
-		elif emoji == '🍇':
-			role = discord.utils.get(guild.roles, name = "🍇 BlackBerry 🍇")
-		elif emoji == '👓':
-			role = discord.utils.get(guild.roles, name = "👓 InSquad 👓")
-		elif emoji == '🌅':
-			role = discord.utils.get(guild.roles, name = "🌅 Sunrise 🌅")
-		elif emoji == '🌈':
-			role = discord.utils.get(guild.roles, name = "🌈 Rainbow 🌈")
-		elif emoji == '🌆':
-			role = discord.utils.get(guild.roles, name = "🌆 Richman 🌆")
-		elif emoji == '🔫':
-			role = discord.utils.get(guild.roles, name = "🔫 Eclipse 🔫")
-		elif emoji == '🌵':
-			role = discord.utils.get(guild.roles, name = "🌵 La Mesa 🌵")
-		elif emoji == '🏛':
-			role = discord.utils.get(guild.roles, name = "🏛 Burton 🏛")
-		elif emoji == '💎':
+		if emoji == '💎':
 			role = discord.utils.get(guild.roles, name = "💎 Rockford 💎")
-		elif emoji == '🍀':
-			role = discord.utils.get(guild.roles, name = "🍀 Alta 🍀")
+
 
 
 		member = await(guild.fetch_member(payload.user_id))
@@ -166,19 +120,8 @@ async def welcome(ctx):
 		)
 
 	msg = await ctx.send(embed=embed)
-	await msg.add_reaction('🏢')
-	await msg.add_reaction('🍓')
-	await msg.add_reaction('🌴')
-	await msg.add_reaction('🍇')
-	await msg.add_reaction('👓')
-	await msg.add_reaction('🌅')
-	await msg.add_reaction('🌈')
-	await msg.add_reaction('🌆')
-	await msg.add_reaction('🔫')
-	await msg.add_reaction('🌵')
-	await msg.add_reaction('🏛')
 	await msg.add_reaction('💎')
-	await msg.add_reaction('🍀')	
+		
 
 
 #создание тикетов
