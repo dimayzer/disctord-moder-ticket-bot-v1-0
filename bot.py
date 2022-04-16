@@ -66,7 +66,7 @@ async def on_member_join (member):
 # выдаем пользователю роли по нажатию
 @bot.event
 async def on_raw_reaction_add(payload):
-	ourMessageID = 942189671390249000 #айди сообщения, к которому аттачатся роли
+	ourMessageID = 964872911863283813 #айди сообщения, к которому аттачатся роли
 
 	if ourMessageID == payload.message_id:
 		member = payload.member
@@ -88,7 +88,7 @@ async def on_raw_reaction_add(payload):
 #удаляем роли у пользователя по нажатию
 @bot.event
 async def on_raw_reaction_remove(payload):
-	ourMessageID = 942189671390249000
+	ourMessageID = 964872911863283813
 
 	if ourMessageID == payload.message_id:
 		guild = await(bot.fetch_guild(payload.guild_id))
